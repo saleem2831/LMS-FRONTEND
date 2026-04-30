@@ -1,0 +1,80 @@
+/* Page */
+.notif-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Title */
+.notif-page h1 {
+  margin-bottom: 25px;
+}
+
+/* List */
+.notif-list {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Card */
+.notif-card {
+  background: white;
+  padding: 15px 18px;
+  border-radius: 14px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
+
+.notif-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+/* Message */
+.notif-message {
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+/* Time */
+.notif-time {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Empty state */
+.empty {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  color: #777;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+}
+
+/* Loader */
+.loader-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ddd;
+  border-top: 5px solid #4a90e2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,87 @@
+.create-course-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.form-card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.form-card h1 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Form */
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+.form-group textarea {
+  resize: none;
+  height: 100px;
+}
+
+/* Pricing Row */
+.pricing-row {
+  display: flex;
+  gap: 10px;
+}
+
+.pricing-row .form-group {
+  flex: 1;
+}
+
+/* Button */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  background: #357abd;
+}
+
+.submit-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* Message */
+.message {
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 500;
+}

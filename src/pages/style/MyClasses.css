@@ -1,0 +1,121 @@
+/* Center Layout */
+.center-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.classes-container {
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* Title */
+h1 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Grid */
+.class-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* Card */
+.class-card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
+
+.class-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+/* Time */
+.time {
+  color: #666;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+/* Status */
+.status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.status.upcoming {
+  background: #e0f0ff;
+  color: #007bff;
+}
+
+.status.completed {
+  background: #e6ffe6;
+  color: green;
+}
+
+/* Buttons */
+.actions {
+  margin-top: 10px;
+}
+
+.join-btn {
+  display: inline-block;
+  padding: 8px 14px;
+  background: #4a90e2;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.join-btn:hover {
+  background: #357abd;
+}
+
+.completed-btn {
+  padding: 8px 14px;
+  background: #ccc;
+  border: none;
+  border-radius: 8px;
+  cursor: not-allowed;
+}
+
+/* Empty */
+.empty {
+  text-align: center;
+  color: #777;
+}
+
+/* Loader */
+.loader-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ddd;
+  border-top: 5px solid #4a90e2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

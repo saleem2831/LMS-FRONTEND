@@ -1,0 +1,143 @@
+/* Page */
+.calendar-page {
+  padding: 30px;
+  background: #f5f7fb;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.page-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+/* Layout */
+.calendar-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+/* Calendar Box */
+.calendar-box {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+/* Classes Box */
+.classes-box {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.classes-box h2 {
+  margin-bottom: 15px;
+}
+
+.classes-box span {
+  color: #4a90e2;
+}
+
+/* Class Card */
+.class-card {
+  border: 1px solid #eee;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  transition: 0.3s;
+}
+
+.class-card:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.class-card h3 {
+  margin: 5px 0;
+}
+
+.time {
+  font-size: 13px;
+  color: #777;
+}
+
+/* Join Button */
+.join-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 14px;
+  background: #4a90e2;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.join-btn:hover {
+  background: #357abd;
+}
+
+/* Badge */
+.badge {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.completed {
+  background: #e6f7ee;
+  color: #1a7f4b;
+}
+
+/* No Data */
+.no-data {
+  color: #888;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Dot Indicator */
+.dot {
+  height: 6px;
+  width: 6px;
+  background: green;
+  border-radius: 50%;
+  margin: auto;
+}
+
+/* Loader */
+.loader-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ddd;
+  border-top: 5px solid #4a90e2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .calendar-layout {
+    grid-template-columns: 1fr;
+  }
+}
