@@ -72,6 +72,7 @@
 import { useState } from "react";
 import API from "../services/api";
 import { Link } from "react-router-dom";
+import logo from "../assets/skillstek_logo.png";
 import "./style/Auth.css";
 
 export default function Register() {
@@ -98,14 +99,65 @@ export default function Register() {
       setMessage("✅ Registered successfully!");
 
       // ✅ Resume pending purchase
-      const pending = JSON.parse(localStorage.getItem("pendingPurchase"));
+      // const pending = JSON.parse(localStorage.getItem("pendingPurchase"));
 
-      if (pending) {
-        localStorage.removeItem("pendingPurchase");
-        window.location.href = "/courses";
-      } else {
-        window.location.href = "/student";
-      }
+      // if (pending) {
+      //   localStorage.removeItem("pendingPurchase");
+      //   window.location.href = "/courses";
+      // } else {
+      //   window.location.href = "/student";
+      // }
+
+      // =====================================
+// RESUME PURCHASE FLOW
+// =====================================
+
+const pending =
+  JSON.parse(
+    localStorage.getItem(
+      "pendingPurchase"
+    )
+  );
+
+if (pending) {
+
+  const {
+    courseId,
+    plan
+  } = pending;
+
+  localStorage.removeItem(
+    "pendingPurchase"
+  );
+
+  // ROUTE TYPE
+  let routeType =
+    "trial";
+
+  if (
+    plan === "ONE_TO_ONE"
+  ) {
+
+    routeType =
+      "one-to-one";
+  }
+
+  if (plan === "BATCH") {
+
+    routeType =
+      "batch";
+  }
+
+  // REDIRECT TO COURSE
+  window.location.href =
+    `/courses/${courseId}/${routeType}`;
+
+} else {
+
+  // NORMAL STUDENT REDIRECT
+  window.location.href =
+    "/login";
+}
 
     } catch (err) {
       setMessage(err.response?.data?.message || "❌ Registration failed");
@@ -117,12 +169,16 @@ export default function Register() {
   return (
     <div className="auth-page">
       <div className="auth-card">
+        <Link to="/" className="auth-logo-link" aria-label="Skillstek home">
+          <img src={logo} alt="Skillstek" className="auth-logo" />
+        </Link>
+
+        {/* <span className="auth-eyebrow">Start learning</span> */}
         <h1>Create Account</h1>
-        <p className="subtitle">Start your learning journey</p>
+        <p className="subtitle">Create your Skillstek account and choose your course path.</p>
 
         {message && <p className="message">{message}</p>}
 
-        {/* Name */}
         <div className="form-group">
           <label>Full Name</label>
           <input
@@ -135,7 +191,6 @@ export default function Register() {
           />
         </div>
 
-        {/* Email */}
         <div className="form-group">
           <label>Email Address</label>
           <input
@@ -148,7 +203,6 @@ export default function Register() {
           />
         </div>
 
-        {/* Password */}
         <div className="form-group">
           <label>Password</label>
           <input
@@ -161,7 +215,6 @@ export default function Register() {
           />
         </div>
 
-        {/* Button */}
         <button
           className="auth-btn"
           onClick={handleRegister}
@@ -175,7 +228,6 @@ export default function Register() {
           {loading ? "Creating Account..." : "Register"}
         </button>
 
-        {/* Links */}
         <div className="auth-links">
           <span>Already have an account?</span>
           <Link to="/login">Login</Link>

@@ -1,356 +1,638 @@
 
-// import { useEffect, useState } from "react";
-// import API from "../services/api";
 
-// export default function CourseList() {
-//   const [courses, setCourses] = useState([]);
-//   const [message, setMessage] = useState("");
-//   const [instructors, setInstructors] = useState([]);
-//   const [editingCourse, setEditingCourse] = useState(null);
-
-// useEffect(() => {
-//   API.get("/api/users/instructors").then(res =>
-//     setInstructors(res.data)
-//   );
-// }, []);
-
-//   const user = JSON.parse(localStorage.getItem("user"));
-
-//   const fetchCourses = async () => {
-//     const res = await API.get("/api/courses");
-//     setCourses(res.data);
-//   };
-
-//   useEffect(() => {
-//     fetchCourses();
-//   }, []);
-
-//   // ✅ APPROVE COURSE
-//   const handleApprove = async (id) => {
-//     await API.put(`/api/courses/${id}/approve`);
-//     alert("Approved");
-//     fetchCourses();
-//   };
-
-//   // ✅ ASSIGN INSTRUCTOR (TEMP SIMPLE)
-
-
-// const assignInstructor = async (courseId, instructorId) => {
-//   try {
-//     await API.put(`/api/courses/${courseId}/assign`, {
-//       instructorId
-//     });
-
-//     // ✅ Refresh courses so UI updates
-//     fetchCourses();
-
-//   } catch (err) {
-//     console.error(err);
-//     alert("Failed to assign instructor");
-//   }
-// };
-
-//   // ✅ PAYMENT FLOW
-//   const handlePayment = async (courseId, plan) => {
-  
-//     if (!user) {
-//   localStorage.setItem(
-//     "pendingPurchase",
-//     JSON.stringify({ courseId, plan })
-//   );
-
-//   window.location.href = "/register";
-//   return;
-// }
-//     startPayment(courseId, plan);
-//   };
-
-//   const startPayment = async (courseId, plan) => {
-//     const { data } = await API.post("/api/payment/order", {
-//       courseId,
-//       plan
-//     });
-
-//     const options = {
-//       key: data.key,
-//       amount: data.order.amount,
-//       order_id: data.order.id,
-
-//       handler: async function (response) {
-//         await API.post("/api/payment/verify", {
-//           ...response,
-//           courseId,
-//           plan
-//         });
-
-//         alert("Enrollment successful!");
-//       }
-//     };
-
-//     new window.Razorpay(options).open();
-//   };
-
-
-
-//   return (
-//     <div>
-//       {/* ✅ MESSAGE */}
-//       {message && (
-//         <p style={{ color: "red", fontWeight: "bold" }}>
-//           {message}
-//         </p>
-//       )}
-
-//       <h2>Courses</h2>
-
-//       {courses.map((course) => (
-//         <div
-//           key={course._id}
-//           style={{
-//             border: "1px solid #ccc",
-//             margin: 10,
-//             padding: 10
-//           }}
-//         >
-//           <h3>{course.title}</h3>
-
-//           {/* ✅ SAFE IMAGE */}
-//           {course.image && (
-//             <img src={course.image} width="200" alt="course" />
-//           )}
-
-//           <p>{course.description}</p>
-
-//           <p>1:1 Price: {course.pricing?.oneToOne}</p>
-//           <p>Batch Price: {course.pricing?.batch}</p>
-
-//           {/* ✅ SAFE LINK */}
-//           {course.curriculumPdf && (
-//             <a href={course.curriculumPdf} target="_blank" rel="noreferrer">
-//               View Curriculum
-//             </a>
-//           )}
-
-//           <p>Status: {course.status}</p>
-
-//           {user?.role === "ADMIN" && (
-
-//   <button onClick={() => setEditingCourse(course)}>
-//   Edit Course
-// </button>
-
-// )}
-
-
-// {editingCourse && (
-//   <div style={{ border: "2px solid black", padding: 10 }}>
-//     <h3>Edit Course</h3>
-
-//     {/* TITLE */}
-//     <input
-//       placeholder="Title"
-//       value={editingCourse.title || ""}
-//       onChange={(e) =>
-//         setEditingCourse({
-//           ...editingCourse,
-//           title: e.target.value
-//         })
-//       }
-//     />
-
-//     {/* DESCRIPTION */}
-//     <textarea
-//       placeholder="Description"
-//       value={editingCourse.description || ""}
-//       onChange={(e) =>
-//         setEditingCourse({
-//           ...editingCourse,
-//           description: e.target.value
-//         })
-//       }
-//     />
-
-//     {/* 1:1 PRICE */}
-//     <input
-//       placeholder="1:1 Price"
-//       value={editingCourse.pricing?.oneToOne || ""}
-//       onChange={(e) =>
-//         setEditingCourse({
-//           ...editingCourse,
-//           pricing: {
-//             ...editingCourse.pricing,
-//             oneToOne: e.target.value
-//           }
-//         })
-//       }
-//     />
-
-//     {/* BATCH PRICE */}
-//     <input
-//       placeholder="Batch Price"
-//       value={editingCourse.pricing?.batch || ""}
-//       onChange={(e) =>
-//         setEditingCourse({
-//           ...editingCourse,
-//           pricing: {
-//             ...editingCourse.pricing,
-//             batch: e.target.value
-//           }
-//         })
-//       }
-//     />
-
-//     {/* SAVE */}
-//     <button
-//       onClick={async () => {
-//         await API.put(
-//           `/api/courses/${editingCourse._id}`,
-//           editingCourse
-//         );
-//         setEditingCourse(null);
-//         fetchCourses();
-//       }}
-//     >
-//       Save
-//     </button>
-
-//     {/* DELETE */}
-//     <button
-//       onClick={async () => {
-//         await API.delete(
-//           `/api/courses/${editingCourse._id}`
-//         );
-//         setEditingCourse(null);
-//         fetchCourses();
-//       }}
-//     >
-//       Delete Course
-//     </button>
-//   </div>
-// )}
-
-//           {/* ✅ SAFE ADMIN CHECK */}
-//           {user?.role === "ADMIN" && (
-//             <>
-
-
-// <select
-//   value={course.assignedInstructor?._id || ""}
-//   onChange={(e) =>
-//     assignInstructor(course._id, e.target.value)
-//   }
-// >
-//   <option value="">Select Instructor</option>
-
-//   {instructors.map((i) => (
-//     <option key={i._id} value={i._id}>
-//       {i.name}
-//     </option>
-//   ))}
-// </select>
-
-//               {course.status !== "approved" && (
-//                 <button onClick={() => handleApprove(course._id)}>
-//                   Approve
-//                 </button>
-//               )}
-//             </>
-//           )}
-
-//           {/* ✅ BUY BUTTONS */}
-//           <div style={{ marginTop: 10 }}>
-
-// {(!user || user.role === "STUDENT") && (
-//   <>
-//     <button onClick={() => handlePayment(course._id, "ONE_TO_ONE")}>
-//       Buy 1:1
-//     </button>
-
-//     <button onClick={() => handlePayment(course._id, "BATCH")}>
-//       Buy Batch
-//     </button>
-//   </>
-// )}
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
-
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import API from "../services/api";
+import Pagination from "../components/Pagination";
 import "./style/CourseList.css";
 
+const COURSES_PER_PAGE = 6;
+
 export default function CourseList() {
+
   const [courses, setCourses] = useState([]);
   const [instructors, setInstructors] = useState([]);
   const [editingCourse, setEditingCourse] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [coursePage, setCoursePage] = useState(1);
+
+
+  const [myEnrollments, setMyEnrollments] = useState([]);
+const [myTrials, setMyTrials] = useState([]);
+
+const [hasEnrollments, setHasEnrollments] =
+  useState(false);
+
+const [hasTrials, setHasTrials] =
+  useState(false);
+
 
   const user = JSON.parse(localStorage.getItem("user"));
 
+  // FETCH INSTRUCTORS
   useEffect(() => {
-    API.get("/api/users/instructors").then((res) =>
-      setInstructors(res.data)
-    );
+
+    const fetchInstructors = async () => {
+
+      try {
+
+        const res = await API.get(
+          "/api/users/instructors"
+        );
+
+        setInstructors(res.data);
+
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchInstructors();
+
   }, []);
+
+  useEffect(() => {
+
+  const fetchStudentData = async () => {
+
+    try {
+
+      if (user?.role !== "STUDENT") return;
+
+      const [enrollmentRes, trialRes] =
+        await Promise.all([
+
+          API.get("/api/enrollments/my"),
+
+          API.get("/api/trials/my-trials")
+
+        ]);
+
+      // setMyEnrollments(
+      //   enrollmentRes.data || []
+      // );
+
+      // setMyTrials(
+      //   trialRes.data || []
+      // );
+
+      const enrollments =
+  enrollmentRes.data || [];
+
+const trials =
+  trialRes.data || [];
+
+setMyEnrollments(enrollments);
+
+setMyTrials(trials);
+
+setHasEnrollments(
+  enrollments.length > 0
+);
+
+setHasTrials(
+  trials.length > 0
+);
+
+    } catch (error) {
+
+      console.log(error);
+    }
+  };
+
+  fetchStudentData();
+
+}, []);
+
+  // FETCH COURSES
+  // const fetchCourses = async () => {
+
+  //   try {
+
+  //     const res = await API.get(
+  //       "/api/courses"
+  //     );
+
+  //     setCourses(res.data);
+
+  //   } catch (error) {
+
+  //     console.log(error);
+
+  //   } finally {
+
+  //     setLoading(false);
+  //   }
+  // };
 
   const fetchCourses = async () => {
-    const res = await API.get("/api/courses");
-    setCourses(res.data);
+
+  try {
+
+    setLoading(true);
+
+    // const res = await API.get(
+    //   "/api/courses"
+    // );
+
+    const res =
+  user?.role === "INSTRUCTOR"
+
+    ? await API.get(
+        "/api/users/instructor-courses"
+      )
+
+    : await API.get(
+        "/api/courses"
+      );
+
+    // normalize instructors
+    const updatedCourses =
+      res.data.map((course) => ({
+
+        ...course,
+
+        assignedInstructors:
+          course.assignedInstructors || []
+
+      }));
+
+    setCourses(updatedCourses);
+
+  } catch (error) {
+
+    console.log(error);
+
+  } finally {
+
     setLoading(false);
-  };
+  }
+};
 
   useEffect(() => {
     fetchCourses();
   }, []);
 
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(courses.length / COURSES_PER_PAGE));
+
+    if (coursePage > totalPages) {
+      setCoursePage(totalPages);
+    }
+  }, [courses.length, coursePage]);
+
+  const paginatedCourses = useMemo(() => {
+    const startIndex = (coursePage - 1) * COURSES_PER_PAGE;
+    return courses.slice(startIndex, startIndex + COURSES_PER_PAGE);
+  }, [courses, coursePage]);
+
+  // APPROVE COURSE
   const handleApprove = async (id) => {
-    await API.put(`/api/courses/${id}/approve`);
-    fetchCourses();
+
+    try {
+
+      await API.put(
+        `/api/courses/${id}/approve`
+      );
+
+      fetchCourses();
+
+    } catch (error) {
+
+      alert(error.response?.data?.message);
+    }
   };
 
-  const assignInstructor = async (courseId, instructorId) => {
-    await API.put(`/api/courses/${courseId}/assign`, {
-      instructorId,
-    });
-    fetchCourses();
+  // ASSIGN INSTRUCTOR
+  // const assignInstructor = async (
+  //   courseId,
+  //   instructorId
+  // ) => {
+
+  //   try {
+
+  //     await API.put(
+  //       `/api/courses/${courseId}/assign`,
+  //       {
+  //         instructorId
+  //       }
+  //     );
+
+  //     alert("Instructor assigned");
+
+  //     fetchCourses();
+
+  //   } catch (error) {
+
+  //     alert(error.response?.data?.message);
+  //   }
+  // };
+
+
+  const assignInstructor = async (
+  courseId,
+  instructorId
+) => {
+
+  if (!instructorId) return;
+
+  try {
+
+    const res = await API.put(
+      `/api/courses/${courseId}/assign`,
+      {
+        instructorId
+      }
+    );
+
+    setCourses((prev) =>
+      prev.map((course) =>
+        course._id === courseId
+          ? res.data
+          : course
+      )
+    );
+
+    alert("Instructor assigned");
+
+  } catch (error) {
+
+    console.log(error);
+
+    alert(
+      error.response?.data?.message
+    );
+  }
+};
+
+
+//   const removeInstructor = async (
+//   courseId,
+//   instructorId
+// ) => {
+
+//   try {
+
+//     await API.put(
+//       `/api/courses/${courseId}/remove-instructor`,
+//       {
+//         instructorId
+//       }
+//     );
+
+//     alert("Instructor removed");
+
+//     fetchCourses();
+
+//   } catch (error) {
+
+//     console.log(error);
+
+//     alert(
+//       error.response?.data?.message
+//     );
+//   }
+// };
+
+  // NORMAL PAYMENT
+  
+//   const removeInstructor = async (
+//   courseId,
+//   instructorId
+// ) => {
+
+//   try {
+
+//     await API.put(
+//       `/api/courses/${courseId}/remove-instructor`,
+//       {
+//         instructorId
+//       }
+//     );
+
+//     setCourses((prev) =>
+//       prev.map((c) =>
+
+//         c._id === courseId
+
+//           ? {
+
+//               ...c,
+
+//               assignedInstructors:
+//                 c.assignedInstructors
+//                   .filter(
+
+//                     (i) =>
+//                       i._id !==
+//                       instructorId
+//                   )
+//             }
+
+//           : c
+//       )
+//     );
+
+//     alert("Instructor removed");
+
+//   } catch (error) {
+
+//     console.log(error);
+
+//     alert(
+//       error.response?.data?.message
+//     );
+//   }
+// };
+  
+
+const removeInstructor = async (
+  courseId,
+  instructorId
+) => {
+
+  try {
+
+    const res = await API.put(
+      `/api/courses/${courseId}/remove-instructor`,
+      {
+        instructorId
+      }
+    );
+
+    setCourses((prev) =>
+      prev.map((course) =>
+        course._id === courseId
+          ? res.data
+          : course
+      )
+    );
+
+    alert("Instructor removed");
+
+  } catch (error) {
+
+    console.log(error);
+
+    alert(
+      error.response?.data?.message
+    );
+  }
+};
+
+
+
+  const handlePayment = async (
+    courseId,
+    plan
+  ) => {
+
+    try {
+
+      if (!user) {
+
+        localStorage.setItem(
+          "pendingPurchase",
+          JSON.stringify({
+            courseId,
+            plan
+          })
+        );
+
+        window.location.href = "/register";
+
+        return;
+      }
+
+      const { data } = await API.post(
+        "/api/payment/order",
+        {
+          courseId,
+          plan
+        }
+      );
+
+      const options = {
+
+        key: data.key,
+
+        amount: data.order.amount,
+
+        currency: "INR",
+
+        order_id: data.order.id,
+
+        handler: async function (response) {
+
+          try {
+
+            await API.post(
+              "/api/payment/verify",
+              {
+                ...response,
+                courseId,
+                plan
+              }
+            );
+
+            alert(
+              "Enrollment successful!"
+            );
+
+          } catch (error) {
+
+            alert(
+              error.response?.data?.message
+            );
+          }
+        }
+      };
+
+      const rzp =
+        new window.Razorpay(options);
+
+      rzp.open();
+
+    } catch (error) {
+
+      alert(error.response?.data?.message);
+    }
   };
 
-  const handlePayment = async (courseId, plan) => {
+  // TRIAL PURCHASE
+  // const handleTrialPurchase = async (
+  //   courseId
+  // ) => {
+
+  //   try {
+
+  //     if (!user) {
+
+  //       localStorage.setItem(
+  //         "pendingTrial",
+  //         JSON.stringify({
+  //           courseId
+  //         })
+  //       );
+
+  //       window.location.href = "/register";
+
+  //       return;
+  //     }
+
+  //     await API.post(
+  //       "/api/trials/buy",
+  //       {
+  //         courseId
+  //       }
+  //     );
+
+  //     alert(
+  //       "Trial request submitted successfully"
+  //     );
+
+  //   } catch (error) {
+
+  //     alert(
+  //       error.response?.data?.message
+  //     );
+  //   }
+  // };
+
+//   const handleTrialPurchase = async (
+//   courseId
+// ) => {
+//   try {
+// alert("hitting 1");
+//     if (!user) {
+
+//         localStorage.setItem(
+//           "pendingPurchase",
+//           JSON.stringify({
+//             courseId,
+//             plan
+//           })
+//         );
+
+//         window.location.href = "/register";
+
+//         return;
+//       }
+// alert("hitting 2");
+
+//     // CREATE ORDER
+//     const { data } = await API.post(
+//       "/api/payment/trial-order",
+//       {
+//         courseId,
+//         plan
+//       }
+//     );
+
+//     alert("hitting 3");
+
+
+//     const options = {
+
+//       key: data.key,
+
+//       amount: data.order.amount,
+
+//       currency: "INR",
+
+//       order_id: data.order.id,
+
+//       handler: async function (response) {
+
+//         try {
+
+//           // VERIFY PAYMENT
+//           await API.post(
+//             "/api/payment/trial-verify",
+//             {
+//               ...response,
+//               courseId,
+//               plan
+//             }
+//           );
+
+//           alert(
+//             "Trial purchased successfully"
+//           );
+
+//         } catch (error) {
+
+//           alert(
+//             error.response?.data?.message
+//           );
+//         }
+//       }
+//     };
+
+//     const rzp =
+//       new window.Razorpay(options);
+
+//     rzp.open();
+
+//   } catch (error) {
+
+//     alert(error.response?.data?.message);
+//   }
+// };
+
+const handleTrialPurchase = async (courseId) => {
+  try {
     if (!user) {
       localStorage.setItem(
-        "pendingPurchase",
-        JSON.stringify({ courseId, plan })
+        "pendingTrial",
+        JSON.stringify({ courseId })
       );
       window.location.href = "/register";
       return;
     }
 
-    const { data } = await API.post("/api/payment/order", {
-      courseId,
-      plan,
+    // 🔥 Create order
+    const { data } = await API.post("/api/payment/trial-order", {
+      courseId
     });
+
+    if (!data?.order?.id || !data?.key) {
+      alert("Payment initialization failed");
+      return;
+    }
 
     const options = {
       key: data.key,
       amount: data.order.amount,
+      currency: "INR",
       order_id: data.order.id,
+
       handler: async function (response) {
-        await API.post("/api/payment/verify", {
-          ...response,
-          courseId,
-          plan,
-        });
-        alert("Enrollment successful!");
-      },
+        try {
+          await API.post("/api/payment/trial-verify", {
+            ...response,
+            courseId
+          });
+
+          alert("✅ Trial purchased successfully");
+
+        } catch (error) {
+          alert(error.response?.data?.message);
+        }
+      }
     };
 
-    new window.Razorpay(options).open();
-  };
+    const rzp = new window.Razorpay(options);
+    rzp.open();
 
+  } catch (error) {
+    console.error(error);
+    alert(error.response?.data?.message || "Payment failed");
+  }
+};
+
+  // LOADER
   if (loading) {
+
     return (
       <div className="loader-container">
         <div className="spinner"></div>
@@ -360,209 +642,669 @@ export default function CourseList() {
 
   return (
     <div className="course-page">
+
       <h1>Courses</h1>
 
+      {/* ===================================== */}
+{/* STUDENT NAVIGATION */}
+{/* ===================================== */}
+
+{user?.role === "STUDENT" && (
+
+  <div className="student-course-nav">
+
+    {/* COURSES */}
+    <button
+      className="student-course-nav-btn active"
+      onClick={() =>
+        window.location.href = "/courses"
+      }
+    >
+      Courses
+    </button>
+
+    {/* TRIAL STUDENTS */}
+    {hasTrials && (
+
+      <button
+        className="student-course-nav-btn"
+        onClick={() =>
+          window.location.href =
+            "/student-trials"
+        }
+      >
+        My Trial Classes
+      </button>
+
+    )}
+
+    {/* FULL ENROLLMENT */}
+    {hasEnrollments && (
+
+      <>
+        <button
+          className="student-course-nav-btn"
+          onClick={() =>
+            window.location.href =
+              "/student"
+          }
+        >
+          Dashboard
+        </button>
+
+        <button
+          className="student-course-nav-btn"
+          onClick={() =>
+            window.location.href =
+              "/my-classes"
+          }
+        >
+          My Classes
+        </button>
+      </>
+
+    )}
+
+  </div>
+
+)}
+
       <div className="course-grid">
-        {courses.map((course) => (
-          <div className="course-card" key={course._id}>
-            
-            {course.image && (
-              <img src={course.image} alt="course" />
-            )}
+
+        {paginatedCourses.map((course) => (
+
+          <div
+            className="course-card"
+            key={course._id}
+          >
+
+            <div className="course-image-wrap">
+              {course.image ? (
+                <img
+                  src={course.image}
+                  alt={course.title}
+                />
+              ) : (
+                <div className="course-image-placeholder">
+                  {course.title?.charAt(0)?.toUpperCase() || "C"}
+                </div>
+              )}
+            </div>
 
             <div className="course-content">
-              <h2>{course.title}</h2>
-              <p>{course.description}</p>
 
-              <div className="pricing">
-                <span>1:1: ₹{course.pricing?.oneToOne}</span>
-                <span>Batch: ₹{course.pricing?.batch}</span>
+              <div className="course-heading">
+                <h2>{course.title}</h2>
+                {course.status && (
+                  <span className={`course-status ${course.status}`}>
+                    {course.status}
+                  </span>
+                )}
               </div>
 
+              <p>{course.description}</p>
+
+              {/* PRICING */}
+              <div className="pricing">
+
+                <span>
+                  1:1 :
+                  ₹{course.pricing?.oneToOne}
+                </span>
+
+                {/* TEMPORARILY HIDE BATCH */}
+
+                {/* <span>
+                  Batch :
+                  ₹{course.pricing?.batch}
+                </span> */}
+
+                {course.trialEnabled && (
+                  <span>
+                    Trial :
+                    ₹{course.pricing?.trial}
+                  </span>
+                )}
+
+              </div>
+
+              {/* CURRICULUM */}
               {course.curriculumPdf && (
-                <a
-                  href={course.curriculumPdf}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="link"
+                <button
+                  className="curriculum-btn"
+                  onClick={() =>
+                    window.open(
+                      course.curriculumPdf,
+                      "_blank"
+                    )
+                  }
                 >
-                  View Curriculum
-                </a>
+                  📄 View Curriculum
+                </button>
               )}
 
-              <p className={`status ${course.status}`}>
-                {course.status}
-              </p>
+    
 
-              {/* ADMIN CONTROLS */}
-              {user?.role === "ADMIN" && (
-                <div className="admin-controls">
-
-                  <button
-                    // onClick={() => setEditingCourse(course)}
-                    onClick={() =>
-  setEditingCourse({
-    ...course,
-    pricing: {
-      oneToOne: course.pricing?.oneToOne || "",
-      batch: course.pricing?.batch || ""
+              {course.curriculumInsPdf &&
+ (user?.role === "ADMIN" || user?.role === "INSTRUCTOR") && (
+  <button
+    className="curriculum-btn"
+    onClick={() =>
+      window.open(course.curriculumInsPdf, "_blank")
     }
-  })
-}
-                    className="edit-btn"
-                  >
-                    Edit
-                  </button>
+  >
+    📄 View Instructor Curriculum
+  </button>
+)}
 
-                  <select
-                    value={course.assignedInstructor?._id || ""}
-                    onChange={(e) =>
-                      assignInstructor(course._id, e.target.value)
-                    }
-                  >
-                    <option value="">Assign Instructor</option>
-                    {instructors.map((i) => (
-                      <option key={i._id} value={i._id}>
+              
+
+              {/* ASSIGNED INSTRUCTORS */}
+              {/* {course.assignedInstructors
+                ?.length > 0 && (
+
+                <div
+                  style={{
+                    marginTop: 10
+                  }}
+                >
+
+                  <b>Instructors:</b>
+
+                  {course.assignedInstructors.map(
+                    (i) => (
+                      <p key={i._id}>
                         {i.name}
-                      </option>
-                    ))}
-                  </select>
-
-                  {course.status !== "approved" && (
-                    <button
-                      className="approve-btn"
-                      onClick={() => handleApprove(course._id)}
-                    >
-                      Approve
-                    </button>
+                      </p>
+                    )
                   )}
                 </div>
-              )}
+              )} */}
 
+              {/* ADMIN CONTROLS */}
+{/* ADMIN CONTROLS */}
+{user?.role === "ADMIN" && (
+
+  <div className="admin-controls">
+
+    <div className="admin-control-row">
+    {/* EDIT BUTTON */}
+    <button
+      className="edit-btn"
+      onClick={() => {
+
+        setEditingCourse({
+
+          _id: course._id,
+
+          title: course.title || "",
+
+          description:
+            course.description || "",
+
+          pricing: {
+
+            oneToOne:
+              course.pricing?.oneToOne || 0,
+
+            batch:
+              course.pricing?.batch || 0,
+
+            trial:
+              course.pricing?.trial || 0
+          }
+        });
+      }}
+    >
+      Edit
+    </button>
+
+    {/* ADD INSTRUCTOR */}
+    <select
+      onChange={(e) =>
+        assignInstructor(
+          course._id,
+          e.target.value
+        )
+      }
+      defaultValue=""
+    >
+
+      <option value="">
+        Add Instructor
+      </option>
+
+      {instructors.map((ins) => (
+
+        <option
+          key={ins._id}
+          value={ins._id}
+        >
+          {ins.name}
+        </option>
+
+      ))}
+
+    </select>
+    </div>
+
+    {/* APPROVE */}
+    {course.status !== "approved" && (
+
+      <button
+        className="approve-btn"
+        onClick={() =>
+          handleApprove(course._id)
+        }
+      >
+        Approve
+      </button>
+
+    )}
+
+    {/* ASSIGNED INSTRUCTORS */}
+    <div className="assigned-instructors">
+
+      <h3>
+        Assigned Instructors
+      </h3>
+
+      {course.assignedInstructors &&
+      course.assignedInstructors.length > 0 ? (
+
+        course.assignedInstructors.map(
+          (ins) => (
+
+            <div
+              key={ins._id}
+              className="assigned-instructor"
+            >
+
+              <div>
+
+                <p>
+                  {ins.name}
+                </p>
+
+                <small>
+                  {ins.email}
+                </small>
+
+              </div>
+
+              <button
+                className="remove-instructor-btn"
+                onClick={() =>
+                  removeInstructor(
+                    course._id,
+                    ins._id
+                  )
+                }
+              >
+                Remove
+              </button>
+
+            </div>
+          )
+        )
+
+      ) : (
+
+        <p className="no-instructors">
+          No instructors assigned
+        </p>
+
+      )}
+    </div>
+
+  </div>
+)}
               {/* STUDENT ACTIONS */}
-              {(!user || user.role === "STUDENT") && (
-                <div className="buy-buttons">
-                  <button
-                    onClick={() =>
-                      handlePayment(course._id, "ONE_TO_ONE")
-                    }
-                  >
-                    Buy 1:1
-                  </button>
+         {/* STUDENT ACTIONS */}
+{(!user ||
+  user.role === "STUDENT") && (() => {
 
-                  <button
-                    onClick={() =>
-                      handlePayment(course._id, "BATCH")
-                    }
-                  >
-                    Buy Batch
-                  </button>
-                </div>
-              )}
+    // CHECK FULL ENROLLMENT
+    const alreadyEnrolled =
+      myEnrollments.some(
+        (e) =>
+          e.courseId?._id === course._id
+      );
+
+    // CHECK TRIAL PURCHASE
+    const alreadyTrialPurchased =
+      myTrials.some(
+        (t) =>
+          t.courseId?._id === course._id
+      );
+
+    return (
+
+      <div className="buy-buttons">
+
+        {/* ================================= */}
+        {/* ALREADY ENROLLED */}
+        {/* ================================= */}
+
+        {alreadyEnrolled ? (
+
+          <button
+            disabled
+            style={{
+              background: "#28a745",
+              color: "#fff",
+              cursor: "not-allowed"
+            }}
+          >
+            Already Enrolled
+          </button>
+
+        ) : (
+
+          <>
+            {/* ================================= */}
+            {/* TRIAL */}
+            {/* ================================= */}
+
+            {course.trialEnabled && (
+
+              alreadyTrialPurchased ? (
+
+                <button
+                  disabled
+                  style={{
+                    background: "#999",
+                    color: "#fff",
+                    cursor: "not-allowed"
+                  }}
+                >
+                  Trial Purchased
+                </button>
+
+              ) : (
+
+                <button
+                  className="trial-btn"
+                  onClick={() =>
+                    handleTrialPurchase(
+                      course._id
+                    )
+                  }
+                >
+                  Buy Trial
+                </button>
+
+              )
+            )}
+
+            {/* ================================= */}
+            {/* FULL COURSE */}
+            {/* ================================= */}
+
+            <button
+              onClick={() =>
+                handlePayment(
+                  course._id,
+                  "ONE_TO_ONE"
+                )
+              }
+            >
+              Buy 1:1
+            </button>
+
+            {/* ================================= */}
+            {/* BATCH */}
+            {/* ================================= */}
+
+            {/* 
+            <button
+              onClick={() =>
+                handlePayment(
+                  course._id,
+                  "BATCH"
+                )
+              }
+            >
+              Buy Batch
+            </button>
+            */}
+
+          </>
+        )}
+
+      </div>
+    );
+  })()}
+
             </div>
           </div>
         ))}
       </div>
 
+      <Pagination
+        currentPage={coursePage}
+        totalItems={courses.length}
+        itemsPerPage={COURSES_PER_PAGE}
+        onPageChange={setCoursePage}
+      />
+
       {/* EDIT MODAL */}
       {editingCourse && (
+
         <div className="modal">
+
           <div className="modal-content">
+
             <h2>Edit Course</h2>
 
+            {/* TITLE */}
             <input
+              placeholder="Title"
               value={editingCourse.title}
               onChange={(e) =>
                 setEditingCourse({
                   ...editingCourse,
-                  title: e.target.value,
+                  title: e.target.value
                 })
               }
             />
 
+            {/* DESCRIPTION */}
             <textarea
-              value={editingCourse.description}
+              placeholder="Description"
+              value={
+                editingCourse.description
+              }
               onChange={(e) =>
                 setEditingCourse({
                   ...editingCourse,
-                  description: e.target.value,
+                  description:
+                    e.target.value
                 })
               }
             />
 
+            {/* ONE TO ONE */}
             <input
-              value={editingCourse.pricing?.oneToOne}
+              placeholder="1:1 Price"
+              value={
+                editingCourse.pricing
+                  ?.oneToOne
+              }
               onChange={(e) =>
                 setEditingCourse({
                   ...editingCourse,
+
                   pricing: {
                     ...editingCourse.pricing,
-                    oneToOne: e.target.value,
-                  },
+
+                    oneToOne:
+                      e.target.value
+                  }
                 })
               }
             />
 
+            {/* BATCH */}
+
             <input
-              value={editingCourse.pricing?.batch}
+              placeholder="Batch Price"
+              value={
+                editingCourse.pricing
+                  ?.batch
+              }
               onChange={(e) =>
                 setEditingCourse({
                   ...editingCourse,
+
                   pricing: {
                     ...editingCourse.pricing,
-                    batch: e.target.value,
-                  },
+
+                    batch:
+                      e.target.value
+                  }
                 })
               }
             />
 
+            {/* TRIAL */}
+
+            <input
+              placeholder="Trial Price"
+              value={
+                editingCourse.pricing
+                  ?.trial
+              }
+              onChange={(e) =>
+                setEditingCourse({
+                  ...editingCourse,
+
+                  pricing: {
+                    ...editingCourse.pricing,
+
+                    trial:
+                      e.target.value
+                  }
+                })
+              }
+            />
+
+            {/* ACTIONS */}
             <div className="modal-actions">
+
+              {/* SAVE */}
               <button
-                // onClick={async () => {
-                //   await API.put(
-                //     `/api/courses/${editingCourse._id}`,
-                //     editingCourse
-                //   );
-                //   setEditingCourse(null);
-                //   fetchCourses();
-                // }}
                 onClick={async () => {
-  const payload = {
-    title: editingCourse.title,
-    description: editingCourse.description,
-    pricing: {
-      oneToOne: Number(editingCourse.pricing?.oneToOne),
-      batch: Number(editingCourse.pricing?.batch)
-    }
-  };
 
-  console.log("Sending payload:", payload);
+                  try {
 
-  await API.put(`/api/courses/${editingCourse._id}`, payload);
+                    const payload = {
 
-  setEditingCourse(null);
-  fetchCourses();
-}}
+                      title:
+                        editingCourse.title,
+
+                      description:
+                        editingCourse.description,
+
+                      pricing: {
+
+                        oneToOne: Number(
+                          editingCourse
+                            .pricing
+                            ?.oneToOne
+                        ),
+
+                        batch: Number(
+                          editingCourse
+                            .pricing
+                            ?.batch
+                        ),
+
+                        trial: Number(
+                          editingCourse
+                            .pricing
+                            ?.trial
+                        )
+                      }
+                    };
+
+                    await API.put(
+                      `/api/courses/${editingCourse._id}`,
+                      payload
+                    );
+
+                    alert(
+                      "Course updated"
+                    );
+
+                    setEditingCourse(
+                      null
+                    );
+
+                    fetchCourses();
+
+                  } catch (error) {
+
+                    alert(
+                      error.response?.data
+                        ?.message
+                    );
+                  }
+                }}
               >
                 Save
               </button>
 
+              {/* DELETE */}
               <button
                 className="delete"
                 onClick={async () => {
-                  await API.delete(
-                    `/api/courses/${editingCourse._id}`
-                  );
-                  setEditingCourse(null);
-                  fetchCourses();
+
+                  const confirmDelete =
+                    window.confirm(
+                      "Delete course?"
+                    );
+
+                  if (!confirmDelete)
+                    return;
+
+                  try {
+
+                    await API.delete(
+                      `/api/courses/${editingCourse._id}`
+                    );
+
+                    alert(
+                      "Course deleted"
+                    );
+
+                    setEditingCourse(
+                      null
+                    );
+
+                    fetchCourses();
+
+                  } catch (error) {
+
+                    alert(
+                      error.response?.data
+                        ?.message
+                    );
+                  }
                 }}
               >
                 Delete
               </button>
 
-              <button onClick={() => setEditingCourse(null)}>
+              {/* CANCEL */}
+              <button
+                onClick={() =>
+                  setEditingCourse(null)
+                }
+              >
                 Cancel
               </button>
+
             </div>
           </div>
         </div>

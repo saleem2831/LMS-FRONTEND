@@ -1,0 +1,17 @@
+/* Navbar Component Styles - Already defined in App.css */
+/* These are additional component-specific overrides if needed */
+
+.navbar-brand:hover {
+  opacity: 0.9;
+  transition: opacity var(--transition-fast);
+}
+
+.navbar-link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.navbar-link:active {
+  opacity: 0.8;
+}

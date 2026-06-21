@@ -1,0 +1,300 @@
+.student-trials-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 18% 8%, rgba(59, 130, 246, 0.16), transparent 28%),
+    radial-gradient(circle at 86% 8%, rgba(124, 58, 237, 0.14), transparent 26%),
+    #05070d;
+  color: var(--color-white);
+  font-family: var(--font-family);
+}
+
+.student-trials-main {
+  width: min(1220px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: var(--spacing-2xl) 0;
+}
+
+.student-trials-hero {
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-xl);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--spacing-xl);
+  align-items: end;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: var(--border-radius-lg);
+  background:
+    linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(124, 58, 237, 0.12)),
+    rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
+}
+
+.student-trials-eyebrow {
+  display: inline-flex;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-accent-cyan);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+
+.student-trials-hero h1,
+.student-trials-section-heading h2 {
+  margin: 0;
+  color: var(--color-white);
+  line-height: 1.15;
+}
+
+.student-trials-hero h1 {
+  font-size: 46px;
+}
+
+.student-trials-hero p {
+  max-width: 720px;
+  margin: var(--spacing-md) 0 0;
+  color: rgba(226, 232, 240, 0.7);
+  font-size: var(--font-size-lg);
+}
+
+.student-trials-stat-grid {
+  margin-bottom: var(--spacing-xl);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.student-trials-stat-card,
+.student-trials-panel,
+.student-trials-card {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: var(--border-radius-lg);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(14px);
+}
+
+.student-trials-stat-card {
+  padding: var(--spacing-lg);
+}
+
+.student-trials-stat-card span {
+  color: rgba(226, 232, 240, 0.62);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.student-trials-stat-card strong {
+  display: block;
+  margin: var(--spacing-sm) 0;
+  color: var(--color-white);
+  font-size: var(--font-size-3xl);
+  line-height: 1;
+}
+
+.student-trials-stat-card p,
+.student-trials-muted {
+  margin: 0;
+  color: rgba(226, 232, 240, 0.62);
+  font-size: var(--font-size-sm);
+}
+
+.student-trials-panel {
+  padding: var(--spacing-lg);
+}
+
+.student-trials-section-heading {
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+}
+
+.student-trials-tabs {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.student-trials-tab {
+  min-height: 42px;
+  padding: 0 var(--spacing-lg);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: var(--border-radius-full);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(226, 232, 240, 0.74);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.student-trials-tab span {
+  min-width: 24px;
+  height: 24px;
+  padding: 0 var(--spacing-xs);
+  display: grid;
+  place-items: center;
+  border-radius: var(--border-radius-full);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-white);
+  font-size: 12px;
+}
+
+.student-trials-tab.active {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--color-primary-base), var(--color-accent-purple));
+  color: var(--color-white);
+  box-shadow: 0 12px 24px rgba(124, 58, 237, 0.22);
+}
+
+.student-trials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.student-trials-card {
+  padding: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.student-trials-card h3 {
+  margin: 0;
+  color: var(--color-white);
+}
+
+.student-trials-details {
+  display: grid;
+  gap: var(--spacing-sm);
+}
+
+.student-trials-details p {
+  margin: 0;
+  color: rgba(226, 232, 240, 0.68);
+  font-size: var(--font-size-sm);
+}
+
+.student-trials-status {
+  width: fit-content;
+  display: inline-flex;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-full);
+  background: rgba(59, 130, 246, 0.16);
+  color: rgba(191, 219, 254, 0.98);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+
+.student-trials-status.waiting {
+  background: rgba(245, 158, 11, 0.16);
+  color: #fbbf24;
+}
+
+.student-trials-status.completed {
+  background: rgba(16, 185, 129, 0.14);
+  color: var(--color-success);
+}
+
+.student-trials-primary-btn,
+.student-trials-secondary-btn,
+.student-trials-complete-btn {
+  min-height: 44px;
+  padding: 0 var(--spacing-lg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--border-radius-md);
+  color: var(--color-white);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+}
+
+.student-trials-primary-btn {
+  width: fit-content;
+  margin-top: auto;
+  background: linear-gradient(135deg, var(--color-primary-base), var(--color-accent-purple));
+  box-shadow: 0 16px 30px rgba(124, 58, 237, 0.22);
+}
+
+.student-trials-secondary-btn {
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.student-trials-complete-btn {
+  width: fit-content;
+  margin-top: auto;
+  background: rgba(16, 185, 129, 0.18);
+  color: var(--color-success);
+}
+
+.student-trials-empty {
+  margin: 0;
+  padding: var(--spacing-xl);
+  border: 1px dashed rgba(148, 163, 184, 0.22);
+  border-radius: var(--border-radius-md);
+  color: rgba(226, 232, 240, 0.62);
+  text-align: center;
+}
+
+.student-trials-loader {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #05070d;
+}
+
+.student-trials-spinner {
+  width: 52px;
+  height: 52px;
+  border: 4px solid rgba(148, 163, 184, 0.18);
+  border-top-color: var(--color-primary-base);
+  border-radius: 50%;
+  animation: student-trials-spin 1s linear infinite;
+}
+
+@keyframes student-trials-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 900px) {
+  .student-trials-hero,
+  .student-trials-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .student-trials-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .student-trials-main {
+    width: calc(100% - 20px);
+    padding: var(--spacing-lg) 0;
+  }
+
+  .student-trials-hero,
+  .student-trials-panel {
+    padding: var(--spacing-lg);
+  }
+
+  .student-trials-hero h1 {
+    font-size: 32px;
+  }
+
+  .student-trials-grid {
+    grid-template-columns: 1fr;
+  }
+}
