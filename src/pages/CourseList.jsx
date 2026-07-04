@@ -1,9 +1,8 @@
-
-
 import { useEffect, useMemo, useState } from "react";
 import API from "../services/api";
 import Pagination from "../components/Pagination";
 import "./style/CourseList.css";
+import CourseEditDrawer from "../components/CourseEditDrawer";
 
 const COURSES_PER_PAGE = 6;
 
@@ -104,25 +103,6 @@ setHasTrials(
 }, []);
 
   // FETCH COURSES
-  // const fetchCourses = async () => {
-
-  //   try {
-
-  //     const res = await API.get(
-  //       "/api/courses"
-  //     );
-
-  //     setCourses(res.data);
-
-  //   } catch (error) {
-
-  //     console.log(error);
-
-  //   } finally {
-
-  //     setLoading(false);
-  //   }
-  // };
 
   const fetchCourses = async () => {
 
@@ -203,29 +183,6 @@ setHasTrials(
   };
 
   // ASSIGN INSTRUCTOR
-  // const assignInstructor = async (
-  //   courseId,
-  //   instructorId
-  // ) => {
-
-  //   try {
-
-  //     await API.put(
-  //       `/api/courses/${courseId}/assign`,
-  //       {
-  //         instructorId
-  //       }
-  //     );
-
-  //     alert("Instructor assigned");
-
-  //     fetchCourses();
-
-  //   } catch (error) {
-
-  //     alert(error.response?.data?.message);
-  //   }
-  // };
 
 
   const assignInstructor = async (
@@ -265,84 +222,6 @@ setHasTrials(
 };
 
 
-//   const removeInstructor = async (
-//   courseId,
-//   instructorId
-// ) => {
-
-//   try {
-
-//     await API.put(
-//       `/api/courses/${courseId}/remove-instructor`,
-//       {
-//         instructorId
-//       }
-//     );
-
-//     alert("Instructor removed");
-
-//     fetchCourses();
-
-//   } catch (error) {
-
-//     console.log(error);
-
-//     alert(
-//       error.response?.data?.message
-//     );
-//   }
-// };
-
-  // NORMAL PAYMENT
-  
-//   const removeInstructor = async (
-//   courseId,
-//   instructorId
-// ) => {
-
-//   try {
-
-//     await API.put(
-//       `/api/courses/${courseId}/remove-instructor`,
-//       {
-//         instructorId
-//       }
-//     );
-
-//     setCourses((prev) =>
-//       prev.map((c) =>
-
-//         c._id === courseId
-
-//           ? {
-
-//               ...c,
-
-//               assignedInstructors:
-//                 c.assignedInstructors
-//                   .filter(
-
-//                     (i) =>
-//                       i._id !==
-//                       instructorId
-//                   )
-//             }
-
-//           : c
-//       )
-//     );
-
-//     alert("Instructor removed");
-
-//   } catch (error) {
-
-//     console.log(error);
-
-//     alert(
-//       error.response?.data?.message
-//     );
-//   }
-// };
   
 
 const removeInstructor = async (
@@ -459,125 +338,7 @@ const removeInstructor = async (
   };
 
   // TRIAL PURCHASE
-  // const handleTrialPurchase = async (
-  //   courseId
-  // ) => {
 
-  //   try {
-
-  //     if (!user) {
-
-  //       localStorage.setItem(
-  //         "pendingTrial",
-  //         JSON.stringify({
-  //           courseId
-  //         })
-  //       );
-
-  //       window.location.href = "/register";
-
-  //       return;
-  //     }
-
-  //     await API.post(
-  //       "/api/trials/buy",
-  //       {
-  //         courseId
-  //       }
-  //     );
-
-  //     alert(
-  //       "Trial request submitted successfully"
-  //     );
-
-  //   } catch (error) {
-
-  //     alert(
-  //       error.response?.data?.message
-  //     );
-  //   }
-  // };
-
-//   const handleTrialPurchase = async (
-//   courseId
-// ) => {
-//   try {
-// alert("hitting 1");
-//     if (!user) {
-
-//         localStorage.setItem(
-//           "pendingPurchase",
-//           JSON.stringify({
-//             courseId,
-//             plan
-//           })
-//         );
-
-//         window.location.href = "/register";
-
-//         return;
-//       }
-// alert("hitting 2");
-
-//     // CREATE ORDER
-//     const { data } = await API.post(
-//       "/api/payment/trial-order",
-//       {
-//         courseId,
-//         plan
-//       }
-//     );
-
-//     alert("hitting 3");
-
-
-//     const options = {
-
-//       key: data.key,
-
-//       amount: data.order.amount,
-
-//       currency: "INR",
-
-//       order_id: data.order.id,
-
-//       handler: async function (response) {
-
-//         try {
-
-//           // VERIFY PAYMENT
-//           await API.post(
-//             "/api/payment/trial-verify",
-//             {
-//               ...response,
-//               courseId,
-//               plan
-//             }
-//           );
-
-//           alert(
-//             "Trial purchased successfully"
-//           );
-
-//         } catch (error) {
-
-//           alert(
-//             error.response?.data?.message
-//           );
-//         }
-//       }
-//     };
-
-//     const rzp =
-//       new window.Razorpay(options);
-
-//     rzp.open();
-
-//   } catch (error) {
-
-//     alert(error.response?.data?.message);
-//   }
-// };
 
 const handleTrialPurchase = async (courseId) => {
   try {
@@ -829,7 +590,7 @@ const handleTrialPurchase = async (courseId) => {
 
     <div className="admin-control-row">
     {/* EDIT BUTTON */}
-    <button
+    {/* <button
       className="edit-btn"
       onClick={() => {
 
@@ -857,7 +618,14 @@ const handleTrialPurchase = async (courseId) => {
       }}
     >
       Edit
-    </button>
+    </button> */}
+
+    <button
+  className="edit-btn"
+  onClick={() => setEditingCourse(course)}
+>
+  ✏️ Edit Course
+</button>
 
     {/* ADD INSTRUCTOR */}
     <select
@@ -1088,227 +856,13 @@ const handleTrialPurchase = async (courseId) => {
         onPageChange={setCoursePage}
       />
 
-      {/* EDIT MODAL */}
-      {editingCourse && (
+<CourseEditDrawer
+    open={!!editingCourse}
+    course={editingCourse}
+    onClose={() => setEditingCourse(null)}
+    onUpdated={fetchCourses}
+/>
 
-        <div className="modal">
-
-          <div className="modal-content">
-
-            <h2>Edit Course</h2>
-
-            {/* TITLE */}
-            <input
-              placeholder="Title"
-              value={editingCourse.title}
-              onChange={(e) =>
-                setEditingCourse({
-                  ...editingCourse,
-                  title: e.target.value
-                })
-              }
-            />
-
-            {/* DESCRIPTION */}
-            <textarea
-              placeholder="Description"
-              value={
-                editingCourse.description
-              }
-              onChange={(e) =>
-                setEditingCourse({
-                  ...editingCourse,
-                  description:
-                    e.target.value
-                })
-              }
-            />
-
-            {/* ONE TO ONE */}
-            <input
-              placeholder="1:1 Price"
-              value={
-                editingCourse.pricing
-                  ?.oneToOne
-              }
-              onChange={(e) =>
-                setEditingCourse({
-                  ...editingCourse,
-
-                  pricing: {
-                    ...editingCourse.pricing,
-
-                    oneToOne:
-                      e.target.value
-                  }
-                })
-              }
-            />
-
-            {/* BATCH */}
-
-            <input
-              placeholder="Batch Price"
-              value={
-                editingCourse.pricing
-                  ?.batch
-              }
-              onChange={(e) =>
-                setEditingCourse({
-                  ...editingCourse,
-
-                  pricing: {
-                    ...editingCourse.pricing,
-
-                    batch:
-                      e.target.value
-                  }
-                })
-              }
-            />
-
-            {/* TRIAL */}
-
-            <input
-              placeholder="Trial Price"
-              value={
-                editingCourse.pricing
-                  ?.trial
-              }
-              onChange={(e) =>
-                setEditingCourse({
-                  ...editingCourse,
-
-                  pricing: {
-                    ...editingCourse.pricing,
-
-                    trial:
-                      e.target.value
-                  }
-                })
-              }
-            />
-
-            {/* ACTIONS */}
-            <div className="modal-actions">
-
-              {/* SAVE */}
-              <button
-                onClick={async () => {
-
-                  try {
-
-                    const payload = {
-
-                      title:
-                        editingCourse.title,
-
-                      description:
-                        editingCourse.description,
-
-                      pricing: {
-
-                        oneToOne: Number(
-                          editingCourse
-                            .pricing
-                            ?.oneToOne
-                        ),
-
-                        batch: Number(
-                          editingCourse
-                            .pricing
-                            ?.batch
-                        ),
-
-                        trial: Number(
-                          editingCourse
-                            .pricing
-                            ?.trial
-                        )
-                      }
-                    };
-
-                    await API.put(
-                      `/api/courses/${editingCourse._id}`,
-                      payload
-                    );
-
-                    alert(
-                      "Course updated"
-                    );
-
-                    setEditingCourse(
-                      null
-                    );
-
-                    fetchCourses();
-
-                  } catch (error) {
-
-                    alert(
-                      error.response?.data
-                        ?.message
-                    );
-                  }
-                }}
-              >
-                Save
-              </button>
-
-              {/* DELETE */}
-              <button
-                className="delete"
-                onClick={async () => {
-
-                  const confirmDelete =
-                    window.confirm(
-                      "Delete course?"
-                    );
-
-                  if (!confirmDelete)
-                    return;
-
-                  try {
-
-                    await API.delete(
-                      `/api/courses/${editingCourse._id}`
-                    );
-
-                    alert(
-                      "Course deleted"
-                    );
-
-                    setEditingCourse(
-                      null
-                    );
-
-                    fetchCourses();
-
-                  } catch (error) {
-
-                    alert(
-                      error.response?.data
-                        ?.message
-                    );
-                  }
-                }}
-              >
-                Delete
-              </button>
-
-              {/* CANCEL */}
-              <button
-                onClick={() =>
-                  setEditingCourse(null)
-                }
-              >
-                Cancel
-              </button>
-
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
